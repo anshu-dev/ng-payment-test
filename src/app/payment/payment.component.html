@@ -1,0 +1,65 @@
+<div class="container-fluid text-dark mt-5">
+  <div class="row justify-content-center align-items-center">
+    <h2>Credit Card Form</h2>
+  </div>
+  <div class="d-flex justify-content-center align-items-center mt-4 mx-auto py-3 pt-4 px-3 payment-form">
+    <div class="col-12 col-md-12">
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input type="text" formControlName="creditCardNumber" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && formControls.creditCardNumber.errors }"
+            placeholder="Credit Card Number" (keypress)='keypresshandler($event)' />
+          <div *ngIf="submitted && formControls.creditCardNumber.errors" class="invalid-feedback">
+            <div *ngIf="formControls.creditCardNumber.errors.required">Card Number is required</div>
+            <div *ngIf="formControls.creditCardNumber.errors.maxlength">
+              Card Number should not more than 16 digit
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="text" formControlName="cardholder" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && formControls.cardholder.errors }" placeholder="Card Holder" />
+          <div *ngIf="submitted && formControls.cardholder.errors" class="invalid-feedback">
+            <div *ngIf="formControls.cardholder.errors.required">Card Holder is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="text" formControlName="expirationDate" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && formControls.expirationDate.errors }"
+            placeholder="Expiration Date" [minDate]="todayDate" bsDatepicker/>
+          <div *ngIf="submitted && formControls.expirationDate.errors" class="invalid-feedback">
+            <div *ngIf="formControls.expirationDate.errors.required">Expire Date is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="text" formControlName="securityCode" class="form-control" (keypress)='keypresshandler($event)'
+            [ngClass]="{ 'is-invalid': submitted && formControls.securityCode.errors }" placeholder="Security Code" />
+          <div *ngIf="submitted && formControls.securityCode.errors" class="invalid-feedback">
+            <div *ngIf="formControls.securityCode.errors.maxlength">
+              Security Code should not more than 3 digit
+            </div>
+            <div *ngIf="formControls.securityCode.errors.minlength">
+              Security Code must have 3 digit
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="text" formControlName="amount" class="form-control" (keypress)='keypresshandler($event)'
+            [ngClass]="{ 'is-invalid': submitted && formControls.amount.errors }" placeholder="Amount" />
+          <div *ngIf="submitted && formControls.amount.errors" class="invalid-feedback">
+            <div *ngIf="formControls.amount.errors.required">Amount is required</div>
+            <div *ngIf="formControls.amount.errors.min">Amount should more than zero</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 px-0"><button class="btn btn-primary btn-md w-100 text-center font-weight-bold text-uppercase">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
